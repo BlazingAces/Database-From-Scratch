@@ -17,19 +17,25 @@ app.use(cors())
 //Connect Database==================================================================
 
     const pool = new Pool ({
+        connectionString: process.env.DATABASE_URL,
         user: '1002c',
         database: 'Metroid',
-        password: 'Zelda@1002'
+        password: 'Zelda@1002',
+        ssl: {
+          rejectUnauthorized: false
+        }
     })
 
 //GET===============================================================================
 
 app.get("/game", async (req, res) => {
     try {
-        const data = await pool.query('SELECT * FROM game;')
+        const client = await pool.connect();
+        const data = await client.query('SELECT * FROM game;')
           res.send(data.rows);
         } catch (error) {
-          res.send("Data Not Found").status(400);
+          console.error(error);
+          res.send("Error" + error);
         }
 })
 
@@ -38,5 +44,5 @@ app.get("/game", async (req, res) => {
 //Listen for the server=============================================================
 
 app.listen(PORT, () => {
-    console.log("Listening in on PORT 8000")
+    console.log(`Listening in on port ${PORT}`)
 });
