@@ -6,7 +6,7 @@ const { Pool } = require('pg');
 const dotenv = require("dotenv")
 const cors = require("cors")
 const app = express();
-const PORT = process.env.PORT;
+const {DATABASE_URL, NODE_ENV, PORT } = process.env;
 
 
 //MiddleWare========================================================================
@@ -26,6 +26,7 @@ dotenv.config();
 //     rejectUnauthorized: false,
 //   }
 // }
+
     const pool = new Pool ({
         connectionString: process.env.DATABASE_URL,
         user: '1002c',
