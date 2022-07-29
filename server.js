@@ -6,7 +6,7 @@ const { Pool } = require('pg');
 const dotenv = require("dotenv")
 const cors = require("cors")
 const app = express();
-const {DATABASE_URL, NODE_ENV, PORT } = process.env;
+const { DATABASE_URL, NODE_ENV, PORT } = process.env;
 
 
 //MiddleWare========================================================================
@@ -28,11 +28,8 @@ dotenv.config();
 // }
 
     const pool = new Pool ({
-        connectionString: process.env.DATABASE_URL,
-        user: '1002c',
-        database: 'Metroid',
-        password: 'Zelda@1002',
-        ssl: NODE_ENV === "production" ? {rejectUnauthorized: false} : false
+        connectionString: DATABASE_URL,
+        ssl: NODE_ENV === 'production' ? {rejectUnauthorized: false} : false,
     })
 
 //GET===============================================================================
